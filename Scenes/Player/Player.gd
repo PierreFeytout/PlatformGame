@@ -34,10 +34,7 @@ func _physics_process(delta):
 		
 	if (isTakingDamage):
 		stop_knockback_velocity(delta)
-	else:
-		# HANDLE BASIC MOVEMENTS
-		handle_movement_actions()
-		
+	else:		
 		handle_jump()
 		
 		if (check_falling()):

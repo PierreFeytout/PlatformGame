@@ -95,9 +95,12 @@ attack_3={
 
 [layer_names]
 
-2d_physics/layer_1="Worl"
+2d_physics/layer_1="World"
 2d_physics/layer_2="Hitboxes"
-2d_physics/layer_3="Hurtboxes"
+2d_physics/layer_3="Player"
+2d_physics/layer_4="Ennemies"
+2d_physics/layer_5="PlayerHurtBox"
+2d_physics/layer_6="EnemyHurtbox"
 
 [physics]
 

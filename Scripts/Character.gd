@@ -9,6 +9,8 @@ export(float) var JUMP_FORCE := 300.0
 export(float) var RECOVERY_TIME := 1.0
 export(float) var KNOCK_BACK_VELOCITY := 500
 var recover_timer
+func is_dead() -> bool:
+	return HEALTH == 0
 
 # PRIVATE FIELDS
 var velocity:= Vector2(0,0)
@@ -22,6 +24,8 @@ var sprite : Sprite;
 var animationPlayer : AnimationPlayer
 var current_action : int = action.IDLE
 
+# CHILD NODES
+
 # ENUMARATIONS
 enum dir_enum { LEFT, RIGHT }
 enum action { IDLE, MOVE_LEFT, MOVE_RIGHT, JUMP, ATTACK}
@@ -31,6 +35,12 @@ func _ready():
 	
 func _physics_process(delta):
 	velocity.y += delta * GRAVITY
+	if (isAttacking):
+		pass
+	elif (isTakingDamage):
+		stop_knockback_velocity(delta);
+	else:
+		handle_movement_actions()
 	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP, true)
 
 func handle_movement_actions() -> void:
@@ -72,6 +82,7 @@ func take_damage(damage: int, attackerPosition: Vector2) -> void:
 		launch_recover_timer()
 
 func die():
+	HEALTH = 0
 	animationPlayer.play("Death")
 	set_physics_process(false)
 

@@ -3,7 +3,7 @@ var detected_body: KinematicBody2D = null
 var is_player_detected = false
 var default_modulate_color: Color
 var detect_modulate_color: Color
-var detector_dead_zone = 20
+export(float) var detector_dead_zone = 20
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,27 +15,24 @@ func _ready():
 	detect_modulate_color.r = detect_modulate_color.r - 20
 	detect_modulate_color.g = detect_modulate_color.g - 20
 	detect_modulate_color.b = detect_modulate_color.b - 20
-
 	pass # Replace with function body.
 
 func _physics_process(delta):
-
-	if (!isTakingDamage):
-		execute_ia()
-		handle_movement_actions()
-	else:
-		stop_knockback_velocity(delta);
-	
+	execute_ia()
 	._physics_process(delta)
 
 func execute_ia():
-	if (is_player_detected and detected_body != null):
-		if (get_relative_direction(detected_body.global_position) == dir_enum.LEFT and !is_in_dead_zone()):
-			current_action = action.MOVE_LEFT
-		elif (get_relative_direction(detected_body.global_position) == dir_enum.RIGHT and !is_in_dead_zone()):
-			current_action = action.MOVE_RIGHT
+	if (is_player_detected):
+		if (is_in_dead_zone()):
+			current_action = action.ATTACK
+#			isAttacking = true
 		else:
-			current_action = action.IDLE
+			if(get_relative_direction(detected_body.global_position) == dir_enum.LEFT):
+				print("Player is on the left")
+				current_action = action.MOVE_LEFT
+			elif (get_relative_direction(detected_body.global_position) == dir_enum.RIGHT):
+				print("Player is on the right")
+				current_action = action.MOVE_RIGHT
 	else:
 		current_action = action.IDLE
 
