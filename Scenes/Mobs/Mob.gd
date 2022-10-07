@@ -1,46 +1,56 @@
 extends Character
 var detected_body: KinematicBody2D = null
 var is_player_detected = false
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+var default_modulate_color: Color
+var detect_modulate_color: Color
+var detector_dead_zone = 20
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	._ready()
 	sprite = get_node("Sprite")
 	animationPlayer = get_node("AnimationPlayer")
+	default_modulate_color = Color($Detector.modulate)
+	detect_modulate_color = Color($Detector.modulate)
+	detect_modulate_color.r = detect_modulate_color.r - 20
+	detect_modulate_color.g = detect_modulate_color.g - 20
+	detect_modulate_color.b = detect_modulate_color.b - 20
+
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	if (is_player_detected):
-		if (detected_body.global_position.x < self.global_position.x and abs(detected_body.global_position.x - self.global_position.x) > 10):
+
+	if (!isTakingDamage):
+		execute_ia()
+		handle_movement_actions()
+	else:
+		stop_knockback_velocity(delta);
+	
+	._physics_process(delta)
+
+func execute_ia():
+	if (is_player_detected and detected_body != null):
+		if (get_relative_direction(detected_body.global_position) == dir_enum.LEFT and !is_in_dead_zone()):
 			current_action = action.MOVE_LEFT
-		elif (detected_body.global_position.x > self.global_position.x and abs(detected_body.global_position.x - self.global_position.x) > 10):
+		elif (get_relative_direction(detected_body.global_position) == dir_enum.RIGHT and !is_in_dead_zone()):
 			current_action = action.MOVE_RIGHT
 		else:
 			current_action = action.IDLE
 	else:
 		current_action = action.IDLE
 
-	handle_movement_actions()
-	._physics_process(delta)
-
 func anim_walk():
 	if (animationPlayer.current_animation != "Walk" and is_on_floor()):
 		animationPlayer.play("Walk")
 
-func take_damage(damage: int) -> void:
-	animationPlayer.play("Hurt")
-
+func is_in_dead_zone() -> bool:
+	return abs(self.global_position.x - detected_body.position.x) < detector_dead_zone
 
 func _on_Detector_body_entered(body: KinematicBody2D):
 	is_player_detected = true
 	detected_body = body
-
+	$Detector.modulate = detect_modulate_color
 
 func _on_Detector_body_exited(area):
 	is_player_detected = false
-	detected_body = null
+	$Detector.modulate = default_modulate_color

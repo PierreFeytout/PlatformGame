@@ -8,13 +8,14 @@ func _ready():
 	self.hide()
 
 func get_input():
-	if (isAttacking):
+	if (isAttacking or isTakingDamage):
 		return
 		
-	if (Input.is_action_pressed("attack_1") and is_on_floor()):
+	if (Input.is_action_just_pressed("attack_1") and is_on_floor()):
 		animationPlayer.play("Attack1")
 		isAttacking  = true;
 		current_action = action.ATTACK
+		velocity.x = 0
 	elif Input.is_action_pressed("move_left"):
 		current_action = action.MOVE_LEFT
 	elif Input.is_action_pressed("move_right"):
@@ -30,17 +31,26 @@ func get_input():
 func _physics_process(delta):
 	# HANDLE INPUTS
 	get_input()
-	
-	# HANDLE BASIC MOVEMENTS
-	handle_movement_actions()
-	
-	handle_jump()
-	
-	if (check_falling()):
-		animationPlayer.play("Falling")
+		
+	if (isTakingDamage):
+		stop_knockback_velocity(delta)
+	else:
+		# HANDLE BASIC MOVEMENTS
+		handle_movement_actions()
+		
+		handle_jump()
+		
+		if (check_falling()):
+			animationPlayer.play("Falling")
 	
 	# EXECUTE AND CALCUALTE NEW VELOCITY
 	._physics_process(delta)
+
+func handle_jump():
+	if (isJumping):
+		snap = Vector2()
+	else:
+		snap = Vector2(0,32)
 
 func anim_walk():
 	if (animationPlayer.current_animation != "Walk" and is_on_floor()):
