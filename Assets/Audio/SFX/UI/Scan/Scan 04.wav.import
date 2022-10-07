@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Scan 04.wav-d656efd786b541c02c14830f840c4b5c.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/UI/Scan/Scan 04.wav"
+dest_files=[ "res://.import/Scan 04.wav-d656efd786b541c02c14830f840c4b5c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

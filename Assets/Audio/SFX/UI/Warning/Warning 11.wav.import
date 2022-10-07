@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Warning 11.wav-15564e5d7ebddbadba1fa0db8e75ed85.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/UI/Warning/Warning 11.wav"
+dest_files=[ "res://.import/Warning 11.wav-15564e5d7ebddbadba1fa0db8e75ed85.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/mixkit-forest-rain-loop-1225.wav-2e5868788ae9ea40d009c1989b997b67.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/mixkit-forest-rain-loop-1225.wav"
+dest_files=[ "res://.import/mixkit-forest-rain-loop-1225.wav-2e5868788ae9ea40d009c1989b997b67.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
