@@ -2,11 +2,15 @@ extends Node
 
 var timeSinceEscape = 0
 var gameStarted = false
+onready var level_resource := load("res://Scenes/Levels/Level1/Level1.tscn")
+var level_instance : Level1 = null
 
 var is_mobile = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$ForegroundAnimation.play("Foreground")
+	$MoonAnimation.play("Moon")
 	$HUD/StartButton.grab_focus()
 	is_mobile = (OS.get_name() == "Android")
 	if (is_mobile):
@@ -20,20 +24,28 @@ func _process(delta):
 	pass
 
 func new_game():
-	$Level1._start()
+	if (level_instance != null):
+		level_instance.free()
+		level_instance = null
+	$ForegroundAnimation.stop(true)
+	$MoonAnimation.stop(true)
+	$Background.hide()
+	level_instance = level_resource.instance()
+	self.add_child(level_instance)
+	level_instance._start()
 	$HUD._hide_menu()
 	$HUD.game_started = true
 	pass
 
 func open_menu():
-	$Level1._pause()
+	level_instance._pause()
 	$HUD/StartButton.grab_focus()
 	$HUD._show_menu()
 	pass
 
 func _on_ContinueButton_pressed():
 	$HUD._hide_menu()
-	$Level1._continue()
+	level_instance._continue()
 	pass
 	
 func _on_StartButton_pressed():
