@@ -16,7 +16,10 @@ script = ExtResource( 1 )
 [node name="MobileHUD" parent="." instance=ExtResource( 3 )]
 visible = false
 
-[connection signal="pressed" from="HUD/StartButton" to="." method="_on_StartButton_pressed"]
-[connection signal="pressed" from="HUD/QuitButton" to="." method="_on_QuitButton_pressed"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 480, 270 )
+current = true
 
-[editable path="HUD"]
+[connection signal="continue_game" from="HUD" to="." method="_on_ContinueButton_pressed"]
+[connection signal="quit_game" from="HUD" to="." method="_on_QuitButton_pressed"]
+[connection signal="start_game" from="HUD" to="." method="_on_StartButton_pressed"]

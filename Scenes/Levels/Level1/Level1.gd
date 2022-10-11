@@ -1,24 +1,29 @@
 extends Node2D
 class_name Level1
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+var player_instance : Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pause_mode = Node.PAUSE_MODE_STOP
-	pass # Replace with function body.
+	var player_resource := load("Scenes/Player/Player.tscn")
+	player_instance = player_resource.instance()
+	self.add_child(player_instance)
+	pass
 
 func _start():
+	player_instance.position = $StartPosition.position
 	$Music.play()
-	$Player._start()
+	var cam = player_instance.get_child(1) as Camera2D
+	cam.global_position.y = 270
+	player_instance._start()
 	pass
 
 func _pause():
-	pass
+	player_instance.set_physics_process(false)
+
+func _continue():
+	player_instance.set_physics_process(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

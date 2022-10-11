@@ -19,22 +19,25 @@ func _ready():
 
 func _physics_process(delta):
 	execute_ia()
+#	handle_attack()
 	._physics_process(delta)
 
 func execute_ia():
 	if (is_player_detected):
 		if (is_in_dead_zone()):
-			current_action = action.ATTACK
-#			isAttacking = true
+			current_action = action.IDLE
 		else:
 			if(get_relative_direction(detected_body.global_position) == dir_enum.LEFT):
-				print("Player is on the left")
 				current_action = action.MOVE_LEFT
 			elif (get_relative_direction(detected_body.global_position) == dir_enum.RIGHT):
-				print("Player is on the right")
 				current_action = action.MOVE_RIGHT
 	else:
 		current_action = action.IDLE
+
+func handle_attack():
+	if (current_action == action.ATTACK):
+		velocity.x = 0
+		animationPlayer.play("Attack")
 
 func anim_walk():
 	if (animationPlayer.current_animation != "Walk" and is_on_floor()):
