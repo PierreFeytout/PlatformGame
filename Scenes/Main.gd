@@ -24,35 +24,52 @@ func _process(delta):
 	pass
 
 func new_game():
-	if (level_instance != null):
-		level_instance.free()
-		level_instance = null
+	free_level()
 	$ForegroundAnimation.stop(true)
 	$MoonAnimation.stop(true)
 	$Background.hide()
 	level_instance = level_resource.instance()
 	self.add_child(level_instance)
-	level_instance._start()
 	$HUD._hide_menu()
+	gameStarted = true
 	$HUD.game_started = true
+	level_instance._start()
 	pass
 
 func open_menu():
-	level_instance._pause()
+	get_tree().paused = true
+#	level_instance._pause()
 	$HUD/StartButton.grab_focus()
 	$HUD._show_menu()
 	pass
 
 func _on_ContinueButton_pressed():
 	$HUD._hide_menu()
-	level_instance._continue()
+#	level_instance._continue()
+	get_tree().paused = false
 	pass
 	
 func _on_StartButton_pressed():
 	new_game()
+	if (get_tree().paused):
+		get_tree().paused = false
 	pass # Replace with function body.
 
+func free_level():
+	if (level_instance != null):
+		level_instance.free()
+		level_instance = null
+	
 
 func _on_QuitButton_pressed():
-	get_tree().quit()
+	if (gameStarted):
+		gameStarted = false
+		$HUD.game_started = false
+		free_level()
+		$ForegroundAnimation.play("Foreground")
+		$MoonAnimation.play("Moon")
+		$Background.show()
+		$HUD._show_menu()
+	else:
+		get_tree().quit()
 	pass # Replace with function body.

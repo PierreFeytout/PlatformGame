@@ -12,10 +12,11 @@ func _ready():
 	pass
 
 func _start():
-	player_instance.position = $StartPosition.position
-	$Music.play()
+	player_instance.position = $Technical/StartPosition.position
+	$Audio/Music.play()
 	var cam = player_instance.get_child(1) as Camera2D
 	cam.global_position.y = 270
+	cam.limit_right = $Technical/EndPosition.global_position.x
 	player_instance._start()
 	pass
 

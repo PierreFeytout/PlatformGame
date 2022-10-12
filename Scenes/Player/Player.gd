@@ -44,21 +44,12 @@ func _physics_process(delta):
 		
 	if (isTakingDamage):
 		stop_knockback_velocity(delta)
-	else:		
-		handle_jump()
-		
+	else:
 		if (check_falling() and !isAttacking):
 			animationPlayer.play("Falling")
 	
 	# EXECUTE AND CALCUALTE NEW VELOCITY
 	._physics_process(delta)
-
-func handle_jump():
-	return
-#	if (isJumping):
-#		snap = Vector2()
-#		velocity.y = jump_velocity
-#		animationPlayer.play("Jump")
 
 func anim_walk():
 	if (animationPlayer.current_animation != "Walk" and is_on_floor()):

@@ -31,10 +31,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ false, true ]
+"values": [ true, false, true ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -217,6 +217,7 @@ collision_mask = 0
 script = ExtResource( 1 )
 WALK_SPEED = 80.0
 RECOVERY_TIME = 0.5
+KNOCK_BACK_VELOCITY = 1000.0
 jump_time_to_peak = 1.0
 
 [node name="MainCollision" type="CollisionShape2D" parent="."]
@@ -224,11 +225,13 @@ position = Vector2( -1, 5.5 )
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 0
 limit_left = 0
-limit_right = 3164
+limit_smoothed = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 drag_margin_top = 0.6
+editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="PlayerSounds" type="AudioStreamPlayer2D" parent="."]
@@ -267,6 +270,7 @@ collision_layer = 2
 collision_mask = 32
 input_pickable = false
 script = ExtResource( 3 )
+Damage = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/HitBox"]
 position = Vector2( 25.5, -4 )

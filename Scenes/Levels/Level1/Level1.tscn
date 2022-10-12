@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/Tilesets/Level.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Audio/Music/Ludum Dare 30 - Track 4.wav" type="AudioStream" id=2]
 [ext_resource path="res://Assets/light.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Levels/Level1/Level1.gd" type="Script" id=4]
+[ext_resource path="res://Assets/PFantasy_SET1_v1.0/decorative_obj.png" type="Texture" id=5]
 [ext_resource path="res://Assets/parallax_mountain_pack/layers/parallax-mountain-bg.png" type="Texture" id=6]
 [ext_resource path="res://Assets/parallax_mountain_pack/layers/parallax-mountain-foreground-trees.png" type="Texture" id=7]
 [ext_resource path="res://Assets/parallax_mountain_pack/layers/parallax-mountain-montain-far.png" type="Texture" id=8]
@@ -11,87 +12,103 @@
 [ext_resource path="res://Assets/parallax_mountain_pack/layers/parallax-mountain-trees.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/Mobs/Mob.tscn" type="PackedScene" id=11]
 
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 280.658, 0, 255.354, 367.606 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 264.294, 368 )
+
 [node name="Level1" type="Node2D"]
+pause_mode = 1
 z_index = -1000
 script = ExtResource( 4 )
 
-[node name="ForestParallax" type="ParallaxBackground" parent="."]
-layer = -99
-offset = Vector2( 0, 260 )
-transform = Transform2D( 1, 0, 0, 1, 0, 260 )
+[node name="Technical" type="Node" parent="."]
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ForestParallax"]
-motion_scale = Vector2( 0.2, 1 )
-motion_mirroring = Vector2( 968, 0 )
+[node name="StartPosition" type="Position2D" parent="Technical"]
+position = Vector2( 335, 422 )
 
-[node name="Sprite" type="Sprite" parent="ForestParallax/ParallaxLayer"]
-modulate = Color( 0.635294, 0.635294, 0.635294, 1 )
-position = Vector2( 484, -12.98 )
-scale = Vector2( 3.55882, 3.66275 )
-texture = ExtResource( 6 )
+[node name="EndPosition" type="Position2D" parent="Technical"]
+position = Vector2( 3264, 384 )
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ForestParallax"]
-motion_scale = Vector2( 0.3, 1 )
-motion_mirroring = Vector2( 816, 0 )
-
-[node name="Sprite" type="Sprite" parent="ForestParallax/ParallaxLayer2"]
-position = Vector2( 402, 0 )
-scale = Vector2( 3, 3.46275 )
-texture = ExtResource( 8 )
-
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ForestParallax"]
-position = Vector2( 0, -38 )
-motion_scale = Vector2( 0.4, 1 )
-motion_mirroring = Vector2( 1632, 0 )
-
-[node name="Sprite" type="Sprite" parent="ForestParallax/ParallaxLayer4"]
-position = Vector2( 600, 3.02 )
-scale = Vector2( 3, 3.46275 )
-texture = ExtResource( 9 )
-
-[node name="ParallaxLayer5" type="ParallaxLayer" parent="ForestParallax"]
-position = Vector2( 0, -42 )
-motion_scale = Vector2( 0.5, 1 )
-motion_mirroring = Vector2( 1632, 0 )
-
-[node name="Sprite" type="Sprite" parent="ForestParallax/ParallaxLayer5"]
-position = Vector2( 600, 3.02 )
-scale = Vector2( 3, 3.46275 )
-texture = ExtResource( 10 )
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ForestParallax"]
-position = Vector2( 0, -55 )
-motion_scale = Vector2( 0.9, 1 )
-motion_mirroring = Vector2( 1632, 0 )
-
-[node name="Sprite" type="Sprite" parent="ForestParallax/ParallaxLayer3"]
-position = Vector2( 600, 10 )
-scale = Vector2( 3, 3.55 )
-texture = ExtResource( 7 )
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="CanvasModulate" type="CanvasModulate" parent="Technical"]
 color = Color( 0.470588, 0.470588, 0.470588, 1 )
 
-[node name="EnvironmentLight" type="Light2D" parent="."]
-position = Vector2( 1633.5, 0 )
-scale = Vector2( 3.19629, 2.05514 )
-texture = ExtResource( 3 )
-range_z_min = -4096
-range_layer_min = -100
-range_item_cull_mask = 3
-shadow_gradient_length = 1.3
-shadow_filter = 3
-shadow_filter_smooth = 11.1
+[node name="Audio" type="Node" parent="."]
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="Audio"]
+pause_mode = 2
 stream = ExtResource( 2 )
 volume_db = -35.0
 mix_target = 1
 
+[node name="Background" type="ParallaxBackground" parent="."]
+offset = Vector2( 0, 260 )
+transform = Transform2D( 1, 0, 0, 1, 0, 260 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2( 0, 1 )
+
+[node name="Sprite" type="Sprite" parent="Background/ParallaxLayer"]
+modulate = Color( 0.635294, 0.635294, 0.635294, 1 )
+scale = Vector2( 3.55882, 3.66275 )
+texture = ExtResource( 6 )
+
+[node name="EnvironmentLight" type="Light2D" parent="Background/ParallaxLayer"]
+position = Vector2( 0, -145 )
+scale = Vector2( 0.90625, 0.922852 )
+texture = ExtResource( 3 )
+energy = 0.9
+range_z_min = -4096
+range_layer_min = -100
+range_item_cull_mask = 3
+shadow_enabled = true
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2( 0.3, 1 )
+motion_mirroring = Vector2( 816, 0 )
+
+[node name="Sprite" type="Sprite" parent="Background/ParallaxLayer2"]
+position = Vector2( 402, 0 )
+scale = Vector2( 3, 3.46275 )
+texture = ExtResource( 8 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="Background"]
+position = Vector2( 0, -38 )
+motion_scale = Vector2( 0.4, 1 )
+motion_mirroring = Vector2( 1632, 0 )
+
+[node name="Sprite" type="Sprite" parent="Background/ParallaxLayer4"]
+position = Vector2( 600, 3.02 )
+scale = Vector2( 3, 3.46275 )
+texture = ExtResource( 9 )
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="Background"]
+position = Vector2( 0, -42 )
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 1632, 0 )
+
+[node name="Sprite" type="Sprite" parent="Background/ParallaxLayer5"]
+position = Vector2( 600, 3.02 )
+scale = Vector2( 3, 3.46275 )
+texture = ExtResource( 10 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Background"]
+position = Vector2( 0, -55 )
+motion_scale = Vector2( 0.9, 1 )
+motion_mirroring = Vector2( 1632, 0 )
+
+[node name="Sprite" type="Sprite" parent="Background/ParallaxLayer3"]
+position = Vector2( 600, 10 )
+scale = Vector2( 3, 3.55 )
+texture = ExtResource( 7 )
+
 [node name="Floor" type="TileMap" parent="."]
 position = Vector2( 0, 508 )
-z_index = 100
-z_as_relative = false
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 show_collision = true
@@ -100,23 +117,32 @@ tile_data = PoolIntArray( -262104, 9, 0, -262103, 10, 0, -262102, 10, 0, -262101
 
 [node name="Walls" type="TileMap" parent="."]
 position = Vector2( 0, 508 )
-z_index = 4096
-z_as_relative = false
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 occluder_light_mask = 2
 format = 1
 tile_data = PoolIntArray( -524288, 4, 0, -524287, 4, 0, -524286, 4, 0, -524285, 5, 0, -458752, 7, 0, -458751, 7, 0, -458750, 7, 0, -458749, 8, 0, -458656, 3, 0, -458655, 4, 0, -458654, 4, 0, -458653, 4, 0, -458652, 4, 0, -458651, 4, 0, -393216, 7, 0, -393215, 7, 0, -393214, 7, 0, -393213, 8, 0, -393120, 6, 0, -393119, 7, 0, -393118, 7, 0, -393117, 7, 0, -393116, 7, 0, -393115, 7, 0, -327680, 7, 0, -327679, 7, 0, -327678, 7, 0, -327677, 8, 0, -327584, 6, 0, -327583, 7, 0, -327582, 7, 0, -327581, 7, 0, -327580, 7, 0, -327579, 7, 0, -262144, 7, 0, -262143, 7, 0, -262142, 7, 0, -262141, 8, 0, -262048, 6, 0, -262047, 7, 0, -262046, 7, 0, -262045, 7, 0, -262044, 7, 0, -262043, 7, 0, -196608, 7, 0, -196607, 7, 0, -196606, 7, 0, -196605, 8, 0, -196512, 6, 0, -196511, 7, 0, -196510, 7, 0, -196509, 7, 0, -196508, 7, 0, -196507, 7, 0, -131072, 7, 0, -131071, 7, 0, -131070, 7, 0, -131069, 8, 0, -130976, 6, 0, -130975, 7, 0, -130974, 7, 0, -130973, 7, 0, -130972, 7, 0, -130971, 7, 0, -65536, 7, 0, -65535, 7, 0, -65534, 7, 0, -65439, 7, 0, -65438, 7, 0, -65437, 7, 0, -65436, 7, 0, -65435, 7, 0 )
 
-[node name="Mob2" parent="." instance=ExtResource( 11 )]
+[node name="Props" type="Node2D" parent="."]
+z_index = 4096
+z_as_relative = false
+
+[node name="DecorativeObj" type="Sprite" parent="Props"]
+position = Vector2( 664, 296 )
+texture = SubResource( 1 )
+
+[node name="DecorativeObj2" type="Sprite" parent="Props"]
+position = Vector2( 1067, 296 )
+texture = SubResource( 2 )
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Mob2" parent="Enemies" instance=ExtResource( 11 )]
 position = Vector2( 1343, 350 )
 
-[node name="Mob3" parent="." instance=ExtResource( 11 )]
+[node name="Mob3" parent="Enemies" instance=ExtResource( 11 )]
 position = Vector2( 1618, 349 )
 
-[node name="Mob" parent="." instance=ExtResource( 11 )]
+[node name="Mob" parent="Enemies" instance=ExtResource( 11 )]
 position = Vector2( 788, 442 )
 HEALTH = 20
-
-[node name="StartPosition" type="Position2D" parent="."]
-position = Vector2( 335, 422 )

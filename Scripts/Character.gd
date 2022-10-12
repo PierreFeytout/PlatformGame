@@ -38,7 +38,11 @@ enum dir_enum { LEFT, RIGHT }
 enum action { IDLE, MOVE_LEFT, MOVE_RIGHT, JUMP, ATTACK, JUMP_ATTACK}
 
 func _ready():
+	pause_mode = Node.PAUSE_MODE_STOP
 	pass
+
+#func _process(delta):
+#	if ()
 
 func _physics_process(delta):
 	velocity.y += get_gravity() * delta
@@ -87,26 +91,38 @@ func check_falling() -> bool:
 		return false
 
 func take_damage(damage: int, attackerPosition: Vector2) -> void:
+	animationPlayer.stop()
+	current_action = action.IDLE
 	animationPlayer.play("Hurt")
 	isTakingDamage = true
+	isAttacking = false
 	HEALTH -= damage
 	if (HEALTH <= 0):
 		die()
 	else:
 		calculate_knockback_velocity(get_relative_direction(attackerPosition))
 		launch_recover_timer()
+	disable_hitbox()
+
+func disable_hitbox():
+	var hitbox = find_node("HitBox")
+	if (hitbox != null):
+		hitbox.disable()
 
 func die():
 	HEALTH = 0
 	animationPlayer.play("Death")
 	set_physics_process(false)
+	_clean_on_death()
+
+func _clean_on_death():
+	pass
 
 func launch_recover_timer():
 	recover_timer = get_tree().create_timer(RECOVERY_TIME)
 	recover_timer.connect("timeout", self, "on_recover_timeout")
 	
 func on_recover_timeout():
-	print("recover timeout")
 	isTakingDamage = false
 
 func flip_sprite(direction : int) -> void:
