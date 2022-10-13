@@ -4,6 +4,7 @@ extends Character
 var count_charge_frame := 0
 var charging_attack := false
 onready var projectile_resource := preload("res://Scenes/Projectile.tscn")
+onready var player_vars := get_node("/root/PlayerVariables") as PlayerVariables
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,7 +43,7 @@ func get_input():
 			get_parent().add_child(projectile)
 			projectile.global_position.y = self.global_position.y
 			projectile.global_position.x = self.global_position.x
-			projectile.launch()
+			projectile.launch(32)
 			charging_attack = false
 			
 		isAttacking  = true;
@@ -92,6 +93,10 @@ func _start():
 	set_physics_process(true)
 	$Camera2D.current = true
 	pass
+
+func take_damage(damage: int, attackerPosition: Vector2) -> void:
+	player_vars.player_take_damage(damage)
+	.take_damage(damage, attackerPosition)
 
 func _on_AnimationPlayer_animation_finished(anim_name: String):
 	if (anim_name.findn("attack") != -1):

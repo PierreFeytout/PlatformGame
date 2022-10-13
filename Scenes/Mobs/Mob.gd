@@ -46,10 +46,13 @@ func _clean_on_death():
 	$Body.queue_free()
 
 func handle_attack():
-	if (current_action == action.ATTACK):
-		isAttacking = true
-		velocity.x = 0
-		animationPlayer.play("Attack")
+	if (has_method("custom_attack")):
+		call("custom_attack")
+	else:
+		if (current_action == action.ATTACK):
+			isAttacking = true
+			velocity.x = 0
+			animationPlayer.play("Attack")
 
 func anim_walk():
 	if (animationPlayer.current_animation != "Walk" and is_on_floor()):

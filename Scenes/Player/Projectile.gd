@@ -12,7 +12,8 @@ func _init():
 func _ready():
 	pass
 
-func launch():
+func launch(c_mask):
+	collision_mask = c_mask
 	set_physics_process(true)
 	show()
 	life_timer = get_tree().create_timer(LIFE_TIME)

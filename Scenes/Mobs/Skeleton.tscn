@@ -14,7 +14,7 @@
 [ext_resource path="res://Assets/Audio/SFX/Minifantasy_Dungeon_SFX/24_orc_death_spin.wav" type="AudioStream" id=12]
 
 [sub_resource type="CircleShape2D" id=4]
-radius = 150.0
+radius = 250.0
 
 [sub_resource type="Animation" id=6]
 resource_name = "Attack"

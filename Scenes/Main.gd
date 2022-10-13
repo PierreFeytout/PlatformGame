@@ -3,6 +3,7 @@ extends Node
 var timeSinceEscape = 0
 var gameStarted = false
 onready var level_resource := load("res://Scenes/Levels/Level1/Level1.tscn")
+onready var player_vars := get_node("/root/PlayerVariables") as PlayerVariables
 var level_instance : Level1 = null
 
 var is_mobile = false
@@ -12,7 +13,7 @@ func _ready():
 	$Music.play()
 	$ForegroundAnimation.play("Foreground")
 	$MoonAnimation.play("Moon")
-	$HUD/StartButton.grab_focus()
+	$MenuHUD/StartButton.grab_focus()
 	is_mobile = (OS.get_name() == "Android")
 	if (is_mobile):
 		$MobileHUD.show()
@@ -26,52 +27,51 @@ func _process(delta):
 
 func new_game():
 	free_level()
+	player_vars.reset()
 	$Music.stop()
 	$ForegroundAnimation.stop(true)
 	$MoonAnimation.stop(true)
 	$Background.hide()
 	level_instance = level_resource.instance()
 	self.add_child(level_instance)
-	$HUD._hide_menu()
+	$MenuHUD._hide_menu()
 	gameStarted = true
-	$HUD.game_started = true
+	$MenuHUD.game_started = true
+	$HUD.show()
 	level_instance._start()
 	pass
 
 func open_menu():
 	get_tree().paused = true
 #	level_instance._pause()
-	$HUD/StartButton.grab_focus()
-	$HUD._show_menu()
+	$MenuHUD/StartButton.grab_focus()
+	$MenuHUD._show_menu()
 	pass
 
-func _on_ContinueButton_pressed():
-	$HUD._hide_menu()
+func _on_MenuHUD_continue_game():
+	$MenuHUD._hide_menu()
 #	level_instance._continue()
 	get_tree().paused = false
-	pass
-	
-func _on_StartButton_pressed():
+
+func _on_MenuHUD_start_game():
 	new_game()
 	if (get_tree().paused):
 		get_tree().paused = false
-	pass # Replace with function body.
+
+func _on_MenuHUD_quit_game():
+	if (gameStarted):
+		gameStarted = false
+		$MenuHUD.game_started = false
+		free_level()
+		$ForegroundAnimation.play("Foreground")
+		$MoonAnimation.play("Moon")
+		$Background.show()
+		$MenuHUD._show_menu()
+		$HUD.hide()
+	else:
+		get_tree().quit()
 
 func free_level():
 	if (level_instance != null):
 		level_instance.free()
 		level_instance = null
-	
-
-func _on_QuitButton_pressed():
-	if (gameStarted):
-		gameStarted = false
-		$HUD.game_started = false
-		free_level()
-		$ForegroundAnimation.play("Foreground")
-		$MoonAnimation.play("Moon")
-		$Background.show()
-		$HUD._show_menu()
-	else:
-		get_tree().quit()
-	pass # Replace with function body.

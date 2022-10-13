@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/Tilesets/Level.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Audio/Music/Abstraction - Ludum Dare 38 Loops/Ludum Dare 38 - Track 9.wav" type="AudioStream" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/parallax_mountain_pack/layers/parallax-mountain-trees.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/Mobs/Skeleton.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Mobs/Goblin.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Mobs/EvilWizard.tscn" type="PackedScene" id=13]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -150,3 +151,6 @@ position = Vector2( 792, 448 )
 
 [node name="Goblin2" parent="Enemies" instance=ExtResource( 12 )]
 position = Vector2( 888, 448 )
+
+[node name="EvilWizard" parent="Enemies" instance=ExtResource( 13 )]
+position = Vector2( 2885, 390 )
