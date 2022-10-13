@@ -1,11 +1,15 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/Random/Arrows/Big/02_Left_Pressed.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/XOST/Colored/Big/X.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/Random/Arrows/Big/04_Right_Pressed.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/Random/Arrows/Big/03_Right.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/Random/Arrows/Big/06_Up_Pressed.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/XOST/Colored/Big/S.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/Random/Arrows/Big/01_Left.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/Random/Arrows/Big/05_Up.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/XOST/Colored/Big/X_Pressed.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/XOST/Colored/Big/S_Pressed.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/Random/Options/Options2.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Onscreen Controls EverCrazy/Buttons/Random/Options/Options2_Pressedpng.png" type="Texture" id=10]
 
 [sub_resource type="VisualScript" id=1]
 data = {
@@ -27,6 +31,13 @@ data = {
 [node name="MobileHUD" type="CanvasLayer"]
 script = SubResource( 1 )
 
+[node name="Menu" type="TouchScreenButton" parent="."]
+position = Vector2( 20, 20 )
+scale = Vector2( 4, 4 )
+normal = ExtResource( 9 )
+pressed = ExtResource( 10 )
+action = "open_menu"
+
 [node name="Left" type="TouchScreenButton" parent="."]
 position = Vector2( 110, 460 )
 scale = Vector2( 4, 4 )
@@ -41,9 +52,16 @@ normal = ExtResource( 4 )
 pressed = ExtResource( 3 )
 action = "move_right"
 
+[node name="Attack" type="TouchScreenButton" parent="."]
+position = Vector2( 698, 460 )
+scale = Vector2( 4, 4 )
+normal = ExtResource( 5 )
+pressed = ExtResource( 8 )
+action = "attack_1"
+
 [node name="Jump" type="TouchScreenButton" parent="."]
 position = Vector2( 850, 460 )
 scale = Vector2( 4, 4 )
-normal = ExtResource( 7 )
-pressed = ExtResource( 5 )
+normal = ExtResource( 2 )
+pressed = ExtResource( 7 )
 action = "jump"

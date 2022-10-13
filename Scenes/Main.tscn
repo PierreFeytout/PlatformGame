@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Medieval_Castle_Asset_Pack/Background/layer_1.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Assets/light.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Medieval_Castle_Asset_Pack/Background/layer_2_lights.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Audio/SFX/UI/Hover/Hover 24.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Audio/Music/Abstraction - Ludum Dare 28 Loops/Ludum Dare 28 - Track 6.wav" type="AudioStream" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Foreground"
@@ -170,6 +171,9 @@ energy = 1.15
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 focus_audio_stream = ExtResource( 9 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
 
 [connection signal="continue_game" from="HUD" to="." method="_on_ContinueButton_pressed"]
 [connection signal="quit_game" from="HUD" to="." method="_on_QuitButton_pressed"]

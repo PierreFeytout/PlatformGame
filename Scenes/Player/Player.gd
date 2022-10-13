@@ -1,6 +1,12 @@
 class_name Player
 extends Character
 
+export(AudioStream) var walk_sound : AudioStream
+export(AudioStream) var jump_sound : AudioStream
+export(AudioStream) var hurt_sound : AudioStream
+export(AudioStream) var death_sound : AudioStream
+export(AudioStream) var attack_sound : AudioStream
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hide()

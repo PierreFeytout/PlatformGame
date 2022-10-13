@@ -9,6 +9,7 @@ var is_mobile = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Music.play()
 	$ForegroundAnimation.play("Foreground")
 	$MoonAnimation.play("Moon")
 	$HUD/StartButton.grab_focus()
@@ -25,6 +26,7 @@ func _process(delta):
 
 func new_game():
 	free_level()
+	$Music.stop()
 	$ForegroundAnimation.stop(true)
 	$MoonAnimation.stop(true)
 	$Background.hide()
