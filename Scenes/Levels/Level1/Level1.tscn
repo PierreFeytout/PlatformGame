@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/Tilesets/Level.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Audio/Music/Abstraction - Ludum Dare 38 Loops/Ludum Dare 38 - Track 9.wav" type="AudioStream" id=2]
@@ -10,7 +10,8 @@
 [ext_resource path="res://Assets/parallax_mountain_pack/layers/parallax-mountain-montain-far.png" type="Texture" id=8]
 [ext_resource path="res://Assets/parallax_mountain_pack/layers/parallax-mountain-mountains.png" type="Texture" id=9]
 [ext_resource path="res://Assets/parallax_mountain_pack/layers/parallax-mountain-trees.png" type="Texture" id=10]
-[ext_resource path="res://Scenes/Mobs/Mob.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Mobs/Skeleton.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Mobs/Goblin.tscn" type="PackedScene" id=12]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -135,12 +136,17 @@ tile_data = PoolIntArray( -524288, 4, 0, -524287, 4, 0, -524286, 4, 0, -524285, 
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="Mob2" parent="Enemies" instance=ExtResource( 11 )]
-position = Vector2( 1343, 350 )
+[node name="Skeleton3" parent="Enemies" instance=ExtResource( 11 )]
+position = Vector2( 1624, 352 )
 
-[node name="Mob3" parent="Enemies" instance=ExtResource( 11 )]
-position = Vector2( 1618, 349 )
+[node name="Skeleton4" parent="Enemies" instance=ExtResource( 11 )]
+position = Vector2( 1864, 448 )
 
-[node name="Mob" parent="Enemies" instance=ExtResource( 11 )]
-position = Vector2( 788, 442 )
-HEALTH = 20
+[node name="Skeleton5" parent="Enemies" instance=ExtResource( 11 )]
+position = Vector2( 1968, 448 )
+
+[node name="Goblin" parent="Enemies" instance=ExtResource( 12 )]
+position = Vector2( 792, 448 )
+
+[node name="Goblin2" parent="Enemies" instance=ExtResource( 12 )]
+position = Vector2( 888, 448 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Hero Knight - Pixel Art/Sprites/HeroKnight.png" type="Texture" id=2]
@@ -6,9 +6,11 @@
 [ext_resource path="res://Scripts/HurtBox.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Audio/Walk01.wav" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Audio/Hurt.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Audio/SFX/Minifantasy_Dungeon_SFX/08_human_charge_1.wav" type="AudioStream" id=7]
 [ext_resource path="res://Assets/Audio/jump.wav" type="AudioStream" id=8]
 [ext_resource path="res://Assets/Audio/SFX/Minifantasy_Dungeon_SFX/07_human_atk_sword_1.wav" type="AudioStream" id=9]
 [ext_resource path="res://Assets/Audio/SFX/Minifantasy_Dungeon_SFX/10_human_special_atk_2.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Audio/Death.wav" type="AudioStream" id=11]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.0
@@ -109,6 +111,111 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 30, 31, 32, 33, 34, 35, 36 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "ChargeAttack"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 18 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PlayerSounds:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 7 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PlayerSounds:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PlayerSounds:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite/Particles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "Death"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 48, 57 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PlayerSounds:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 11 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PlayerSounds:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -301,7 +408,7 @@ tracks/4/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=21]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -313,10 +420,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 36 ]
+"values": [ 57 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite/HitBox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("PlayerSounds:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -325,31 +432,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("PlayerSounds:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
 "values": [ false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("PlayerSounds:volume_db")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -18.0 ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -369,45 +452,28 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 8, 17 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("PlayerSounds:stream")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ ExtResource( 5 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("PlayerSounds:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.07, 0.46 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, true ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("PlayerSounds:volume_db")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ -8.0 ]
-}
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 23.5, 23 )
+
+[sub_resource type="Gradient" id=18]
+interpolation_mode = 2
+colors = PoolColorArray( 1, 0, 0, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=19]
+gradient = SubResource( 18 )
+
+[sub_resource type="ParticlesMaterial" id=17]
+lifetime_randomness = 0.2
+emission_shape = 1
+emission_sphere_radius = 8.0
+flag_disable_z = true
+gravity = Vector3( -45, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.5
+color = Color( 1, 0.972549, 0, 1 )
+color_ramp = SubResource( 19 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 17
@@ -418,7 +484,7 @@ RECOVERY_TIME = 0.5
 KNOCK_BACK_VELOCITY = 1000.0
 jump_time_to_peak = 1.0
 
-[node name="MainCollision" type="CollisionShape2D" parent="."]
+[node name="Body" type="CollisionShape2D" parent="."]
 position = Vector2( -1, 5.5 )
 shape = SubResource( 1 )
 
@@ -434,25 +500,27 @@ editor_draw_drag_margin = true
 
 [node name="PlayerSounds" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
-volume_db = -18.0
+volume_db = -8.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack1 = SubResource( 2 )
 anims/Attack2 = SubResource( 3 )
 anims/Attack3 = SubResource( 8 )
+anims/ChargeAttack = SubResource( 14 )
+anims/Death = SubResource( 20 )
 anims/Falling = SubResource( 9 )
 anims/Hurt = SubResource( 11 )
 anims/Idle = SubResource( 4 )
 anims/Jump = SubResource( 5 )
 anims/JumpAttack = SubResource( 12 )
-anims/RESET = SubResource( 13 )
+anims/RESET = SubResource( 21 )
 anims/Walk = SubResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 hframes = 10
 vframes = 9
-frame = 36
+frame = 57
 
 [node name="HurtBox" type="Area2D" parent="Sprite"]
 collision_layer = 16
@@ -475,5 +543,12 @@ Damage = 20
 position = Vector2( 25.5, -4 )
 shape = SubResource( 10 )
 disabled = true
+
+[node name="Particles2D" type="Particles2D" parent="Sprite"]
+position = Vector2( -20, -5 )
+emitting = false
+amount = 100
+lifetime = 0.8
+process_material = SubResource( 17 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

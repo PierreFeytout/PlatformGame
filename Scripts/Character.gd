@@ -28,6 +28,7 @@ var isTakingDamage = false;
 
 # REQUIRED CHILD NODES
 var sprite : Sprite;
+var main_body : CollisionShape2D;
 var animationPlayer : AnimationPlayer
 var current_action : int = action.IDLE
 
@@ -63,11 +64,11 @@ func handle_movement_actions() -> void:
 	if (current_action == action.MOVE_LEFT):
 		velocity.x = -WALK_SPEED
 		_anim_walk()
-		flip_sprite(dir_enum.LEFT)
+#		flip_sprite(dir_enum.LEFT)
 	elif (current_action == action.MOVE_RIGHT):
 		velocity.x = WALK_SPEED
 		_anim_walk()
-		flip_sprite(dir_enum.RIGHT)
+#		flip_sprite(dir_enum.RIGHT)
 	elif (current_action == action.IDLE):
 		velocity.x = 0
 		velocity.x = lerp(velocity.x, 0, 0.1)
@@ -127,6 +128,7 @@ func on_recover_timeout():
 
 func flip_sprite(direction : int) -> void:
 	sprite.scale.x = -1 if direction == dir_enum.LEFT else 1
+	main_body.scale.x = -1 if direction == dir_enum.LEFT else 1
 
 func stop_knockback_velocity(delta: float):
 	velocity = velocity.move_toward(Vector2.ZERO, 200 * delta)

@@ -188,6 +188,8 @@ position = Vector2( 6, -6 )
 shape = SubResource( 8 )
 disabled = true
 
+[node name="SFXPlayer" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="body_entered" from="Detector" to="." method="_on_Detector_body_entered"]
 [connection signal="body_exited" from="Detector" to="." method="_on_Detector_body_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
