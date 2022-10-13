@@ -19,8 +19,9 @@ func _ready():
 	detect_modulate_color.b = detect_modulate_color.b - 20
 
 func _physics_process(delta):
-	execute_ia()
-	handle_attack()
+	if (!is_dead()):
+		execute_ia()
+		handle_attack()
 	._physics_process(delta)
 
 func execute_ia():
@@ -43,7 +44,8 @@ func _clean_on_death():
 	$Detector.queue_free()
 	$Sprite/HitBox.queue_free()
 	$Sprite/HurtBox.queue_free()
-	$Body.queue_free()
+	collision_layer = 1
+	collision_mask = 0
 
 func handle_attack():
 	if (has_method("custom_attack")):

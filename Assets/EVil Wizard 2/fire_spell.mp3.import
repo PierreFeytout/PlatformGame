@@ -11,5 +11,5 @@ dest_files=[ "res://.import/fire_spell.mp3-0a5889747c2a966960801fcb7636615a.mp3s
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

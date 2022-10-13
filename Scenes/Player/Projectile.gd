@@ -2,6 +2,7 @@ extends HitBox
 
 export(float) var LIFE_TIME = 4.5
 export(float) var SPEED = 100
+var direction = 1
 
 var life_timer
 
@@ -12,7 +13,8 @@ func _init():
 func _ready():
 	pass
 
-func launch(c_mask):
+func launch(c_mask, dir: int):
+	direction = dir
 	collision_mask = c_mask
 	set_physics_process(true)
 	show()
@@ -23,7 +25,7 @@ func on_lifetime_timeout():
 	queue_free()
 
 func _physics_process(delta):
-	translate(Vector2(SPEED * delta, 0))
+	translate(Vector2(SPEED * delta * direction, 0))
 	pass
 
 

@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Medieval_Castle_Asset_Pack/Background/layer_1.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/MobileHud/MobileHUD.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/HUD/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Medieval_Castle_Asset_Pack/Background/layer_2.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Medieval_Castle_Asset_Pack/Background/layer_3.png" type="Texture" id=6]
 [ext_resource path="res://Assets/light.png" type="Texture" id=7]
@@ -173,10 +172,4 @@ energy = 1.15
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
-
-[node name="HUD" parent="." instance=ExtResource( 4 )]
-visible = false
-
-[connection signal="continue_game" from="MenuHUD" to="." method="_on_MenuHUD_continue_game"]
-[connection signal="quit_game" from="MenuHUD" to="." method="_on_MenuHUD_quit_game"]
-[connection signal="start_game" from="MenuHUD" to="." method="_on_MenuHUD_start_game"]
+volume_db = -20.0

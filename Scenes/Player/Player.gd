@@ -13,9 +13,10 @@ func _ready():
 	sprite = get_node("Sprite")
 	animationPlayer = get_node("AnimationPlayer")
 	main_body = $Body
+	HEALTH = PlayerVariables.player_health
 
 func get_input():
-	if (isAttacking or isTakingDamage):
+	if (isAttacking or isTakingDamage or is_dead()):
 		return
 		
 	if (Input.is_action_pressed("attack_1") and is_on_floor()):
@@ -43,7 +44,7 @@ func get_input():
 			get_parent().add_child(projectile)
 			projectile.global_position.y = self.global_position.y
 			projectile.global_position.x = self.global_position.x
-			projectile.launch(32)
+			projectile.launch(32, 1 if current_dir == dir_enum.RIGHT else -1)
 			charging_attack = false
 			
 		isAttacking  = true;
@@ -82,8 +83,8 @@ func _physics_process(delta):
 func _clean_on_death():
 	$Sprite/HitBox.queue_free()
 	$Sprite/HurtBox.queue_free()
-	$Body.queue_free()
-	
+	collision_layer = 1
+
 func anim_walk():
 	if (animationPlayer.current_animation != "Walk" and is_on_floor()):
 		animationPlayer.play("Walk")

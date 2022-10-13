@@ -8,6 +8,8 @@ export(float) var RECOVERY_TIME = 1.0
 export(float) var KNOCK_BACK_VELOCITY = 500
 var recover_timer
 
+var current_dir = dir_enum.RIGHT
+
 export(float) var jump_height = 100
 export(float) var jump_time_to_peak = 2
 export(float) var jump_time_to_descent = 0.8
@@ -113,7 +115,6 @@ func disable_hitbox():
 func die():
 	HEALTH = 0
 	animationPlayer.play("Death")
-	set_physics_process(false)
 	_clean_on_death()
 
 func _clean_on_death():
@@ -127,8 +128,13 @@ func on_recover_timeout():
 	isTakingDamage = false
 
 func flip_sprite(direction : int) -> void:
-	sprite.scale.x = -1 if direction == dir_enum.LEFT else 1
-	main_body.scale.x = -1 if direction == dir_enum.LEFT else 1
+	current_dir = direction
+	if (direction == dir_enum.LEFT):
+		sprite.scale.x = abs(sprite.scale.x) * -1
+		main_body.scale.x = abs(main_body.scale.x) * -1
+	else:
+		sprite.scale.x = abs(sprite.scale.x)
+		main_body.scale.x = abs(main_body.scale.x)
 
 func stop_knockback_velocity(delta: float):
 	velocity = velocity.move_toward(Vector2.ZERO, 200 * delta)

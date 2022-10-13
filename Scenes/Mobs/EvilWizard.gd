@@ -21,4 +21,4 @@ func create_projectiles(count: int):
 		get_parent().add_child(p)
 		p.global_position.y = self.global_position.y + rng.randi_range(-20,20)
 		p.global_position.x = self.global_position.x
-		p.launch(16)
+		p.launch(16, 1 if current_dir == dir_enum.RIGHT else -1)

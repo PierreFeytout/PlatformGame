@@ -153,4 +153,4 @@ position = Vector2( 792, 448 )
 position = Vector2( 888, 448 )
 
 [node name="EvilWizard" parent="Enemies" instance=ExtResource( 13 )]
-position = Vector2( 2885, 390 )
+position = Vector2( 750, 400 )
