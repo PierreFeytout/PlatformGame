@@ -18,7 +18,7 @@ func _ready():
 func goto_main_menu():
 	is_in_game = false
 	Game.unload_menu()
-	goto_scene("res://Scenes/Main.tscn")
+	SceneTransition.change_scene("res://Scenes/Main.tscn")
 
 func goto_scene(path):
 	# This function will usually be called from a signal callback,
@@ -29,7 +29,8 @@ func goto_scene(path):
 
 	# The solution is to defer the load to a later time, when
 	# we can be sure that no code from the current scene is running:
-
+	if (Game.current_scene.has_method("hide")):
+		Game.current_scene.hide()
 	call_deferred("_deferred_goto_scene", path)
 
 func _deferred_goto_scene(path: String):

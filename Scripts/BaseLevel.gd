@@ -2,6 +2,7 @@ class_name BaseLevel
 extends Node2D
 
 var player_instance : Player
+var hud_instance
 
 func _ready():
 	pause_mode = Node.PAUSE_MODE_STOP
@@ -10,7 +11,7 @@ func _ready():
 	self.add_child(player_instance)
 
 	var hud_resource = load("Scenes/HUD/HUD.tscn")
-	var hud_instance = hud_resource.instance()
+	hud_instance = hud_resource.instance()
 	self.add_child(hud_instance)
 
 	_start()

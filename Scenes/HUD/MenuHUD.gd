@@ -53,7 +53,7 @@ func connect_signal():
 func new_game():
 	Game.unload_menu()
 	PlayerVariables.reset()
-	Game.goto_scene("res://Scenes/Levels/Level1/Level1.tscn")
+	SceneTransition.change_scene("res://Scenes/Levels/Level1/Level1.tscn")
 	if (Game.is_paused):
 		Game.pause()
 	pass

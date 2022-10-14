@@ -70,6 +70,7 @@ config/icon="res://icon.png"
 
 Game="*res://Scripts/Game.gd"
 PlayerVariables="*res://Scripts/PlayerVariables.gd"
+SceneTransition="*res://Scenes/SceneTransition.tscn"
 
 [display]
 
