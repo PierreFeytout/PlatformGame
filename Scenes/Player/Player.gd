@@ -74,7 +74,7 @@ func _physics_process(delta):
 	# HANDLE INPUTS
 	get_input()
 	
-	if (check_falling() and !isAttacking and !isTakingDamage):
+	if (check_falling() and !isAttacking and !isTakingDamage and !is_dead()):
 		animationPlayer.play("Falling")
 	
 	# EXECUTE AND CALCUALTE NEW VELOCITY

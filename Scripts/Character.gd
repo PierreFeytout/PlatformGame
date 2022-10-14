@@ -19,7 +19,7 @@ onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * 
 onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
 func is_dead() -> bool:
-	return HEALTH == 0
+	return HEALTH <= 0
 
 # PRIVATE FIELDS
 var velocity:= Vector2(0,0)
@@ -49,13 +49,14 @@ func _ready():
 
 func _physics_process(delta):
 	velocity.y += get_gravity() * delta
-
-	if (current_action == action.ATTACK):
-		pass
-	elif (isTakingDamage):
-		stop_knockback_velocity(delta);
-	else:
-		handle_movement_actions()
+	
+	if (!is_dead()):
+		if (current_action == action.ATTACK):
+			pass
+		elif (isTakingDamage):
+			stop_knockback_velocity(delta);
+		else:
+			handle_movement_actions()
 
 	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP, true)
 
@@ -66,11 +67,9 @@ func handle_movement_actions() -> void:
 	if (current_action == action.MOVE_LEFT):
 		velocity.x = -WALK_SPEED
 		_anim_walk()
-#		flip_sprite(dir_enum.LEFT)
 	elif (current_action == action.MOVE_RIGHT):
 		velocity.x = WALK_SPEED
 		_anim_walk()
-#		flip_sprite(dir_enum.RIGHT)
 	elif (current_action == action.IDLE):
 		velocity.x = 0
 		velocity.x = lerp(velocity.x, 0, 0.1)
@@ -94,15 +93,18 @@ func check_falling() -> bool:
 		return false
 
 func take_damage(damage: int, attackerPosition: Vector2) -> void:
-	animationPlayer.stop()
-	current_action = action.IDLE
-	animationPlayer.play("Hurt")
-	isTakingDamage = true
-	isAttacking = false
+	if (is_dead()):
+		return
 	HEALTH -= damage
 	if (HEALTH <= 0):
+		current_action = action.IDLE
 		die()
 	else:
+		animationPlayer.stop()
+		current_action = action.IDLE
+		animationPlayer.play("Hurt")
+		isTakingDamage = true
+		isAttacking = false
 		calculate_knockback_velocity(get_relative_direction(attackerPosition))
 		launch_recover_timer()
 	disable_hitbox()
@@ -114,6 +116,8 @@ func disable_hitbox():
 
 func die():
 	HEALTH = 0
+	velocity.x = 0
+	animationPlayer.stop()
 	animationPlayer.play("Death")
 	_clean_on_death()
 

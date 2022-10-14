@@ -52,7 +52,7 @@ SPEED = 200.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 20 )
-frame = 10
+frame = 12
 speed_scale = 5.0
 playing = true
 

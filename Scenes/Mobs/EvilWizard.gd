@@ -1,9 +1,7 @@
 extends "res://Scenes/Mobs/Mob.gd"
 var projectile_resource = preload("res://Scenes/Projectile.tscn")
-var rng = RandomNumberGenerator.new()
 
 func _ready():
-	rng.randomize()
 	pass
 
 func custom_attack():
@@ -13,12 +11,9 @@ func custom_attack():
 		animationPlayer.play("Attack")
 
 func create_projectiles(count: int):
-	var projectile_array : Array
-	for n in count:
-		projectile_array.append(projectile_resource.instance())
-
-	for p in projectile_array:
-		get_parent().add_child(p)
-		p.global_position.y = self.global_position.y + rng.randi_range(-20,20)
-		p.global_position.x = self.global_position.x
-		p.launch(16, 1 if current_dir == dir_enum.RIGHT else -1)
+	var dir_mult = 1 if current_dir == dir_enum.RIGHT else -1
+	var projectile_instance = projectile_resource.instance()
+	get_parent().add_child(projectile_instance)
+	projectile_instance.global_position.y = self.global_position.y
+	projectile_instance.global_position.x = self.global_position.x + (80 * self.scale.x * dir_mult)
+	projectile_instance.launch_diag(16, dir_mult, (detected_body.position - self.position).normalized().y)

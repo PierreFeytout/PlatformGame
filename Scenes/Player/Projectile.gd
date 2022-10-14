@@ -1,10 +1,10 @@
 extends HitBox
 
-export(float) var LIFE_TIME = 4.5
+export(float) var MAX_DIST = 800
 export(float) var SPEED = 100
 var direction = 1
-
-var life_timer
+var init_position_x
+var y_vect = 0
 
 func _init():
 	set_physics_process(false)
@@ -13,19 +13,21 @@ func _init():
 func _ready():
 	pass
 
+func launch_diag(c_mask:int, dir: int, y: float):
+	y_vect = y
+	launch(c_mask, dir)
+
 func launch(c_mask, dir: int):
+	init_position_x = global_position.x
 	direction = dir
 	collision_mask = c_mask
 	set_physics_process(true)
 	show()
-	life_timer = get_tree().create_timer(LIFE_TIME)
-	life_timer.connect("timeout", self, "on_lifetime_timeout")
-
-func on_lifetime_timeout():
-	queue_free()
 
 func _physics_process(delta):
-	translate(Vector2(SPEED * delta * direction, 0))
+	translate(Vector2(SPEED * delta * direction, y_vect))
+	if (abs(global_position.x - init_position_x) >= MAX_DIST):
+		queue_free()
 	pass
 
 
