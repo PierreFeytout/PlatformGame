@@ -10,20 +10,21 @@ enum HUD_ACTION {START, CONTINUE, QUIT}
 func _ready():
 	pause_mode = Node.PAUSE_MODE_PROCESS
 	if (Game.is_in_game):
-		$ContinueButton.grab_focus()
+		$Node/ContinueButton.grab_focus()
 	else:
-		$StartButton.grab_focus()
+		$Node/StartButton.grab_focus()
 	pass # Replace with function body.
 
 func _show_menu():
+	$AnimationPlayer.play_backwards("appear")
 	connect_signal()
 	show()
 	if (Game.is_in_game):
-		$ContinueButton.show()
-		$StartButton.text = "Restart" 
+		$Node/ContinueButton.show()
+		$Node/StartButton.text = "Restart" 
 	else:
-		$ContinueButton.hide()
-		$StartButton.text = "Start"
+		$Node/ContinueButton.hide()
+		$Node/StartButton.text = "Start"
 	return
 
 func pressed_button_action(action: int):
@@ -42,15 +43,17 @@ func on_focus_entered():
 	$AudioStreamPlayer.play()
 
 func connect_signal():
-	$StartButton.connect("pressed", self, "pressed_button_action", [HUD_ACTION.START])
-	$ContinueButton.connect("pressed", self, "pressed_button_action", [HUD_ACTION.CONTINUE])
-	$QuitButton.connect("pressed", self, "pressed_button_action", [HUD_ACTION.QUIT])
+	$Node/StartButton.connect("pressed", self, "pressed_button_action", [HUD_ACTION.START])
+	$Node/ContinueButton.connect("pressed", self, "pressed_button_action", [HUD_ACTION.CONTINUE])
+	$Node/QuitButton.connect("pressed", self, "pressed_button_action", [HUD_ACTION.QUIT])
 	
 	for children in self.get_children():
 		if (children is Button):
 			children.connect("focus_entered", self, "on_focus_entered")
 
 func new_game():
+	$AnimationPlayer.play("appear")
+	yield($AnimationPlayer,"animation_finished")
 	Game.unload_menu()
 	PlayerVariables.reset()
 	SceneTransition.change_scene("res://Scenes/Levels/Level1/Level1.tscn")
@@ -60,10 +63,14 @@ func new_game():
 
 func continue_game():
 	Game.pause()
+	$AnimationPlayer.play("appear")
+	yield($AnimationPlayer,"animation_finished")
 	Game.unload_menu()
 
 func quit_game():
 	if (Game.is_in_game):
+		$AnimationPlayer.play("appear")
+		yield($AnimationPlayer,"animation_finished")
 		Game.goto_main_menu()
 	else:
 		Game.quit()

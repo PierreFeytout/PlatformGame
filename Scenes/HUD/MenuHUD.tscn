@@ -1,8 +1,39 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/HUD/MenuHUD.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Audio/SFX/UI/Confirm/Confirm 40.wav" type="AudioStream" id=3]
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Node:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 480, 545 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "appear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Node:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 480, 545 ), Vector2( 480, 761 ) ]
+}
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -11,7 +42,19 @@ font_data = ExtResource( 1 )
 [node name="MenuHUD" type="CanvasLayer"]
 script = ExtResource( 2 )
 
-[node name="ContinueButton" type="Button" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -30.0
+pitch_scale = 1.06
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 3 )
+anims/appear = SubResource( 2 )
+
+[node name="Node" type="Node2D" parent="."]
+position = Vector2( 480, 545 )
+
+[node name="ContinueButton" type="Button" parent="Node"]
 visible = false
 anchor_left = 0.5
 anchor_top = 1.0
@@ -30,7 +73,7 @@ custom_fonts/font = SubResource( 1 )
 text = "Continue"
 flat = true
 
-[node name="StartButton" type="Button" parent="."]
+[node name="StartButton" type="Button" parent="Node"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -48,7 +91,7 @@ custom_fonts/font = SubResource( 1 )
 text = "Start"
 flat = true
 
-[node name="QuitButton" type="Button" parent="."]
+[node name="QuitButton" type="Button" parent="Node"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -64,8 +107,3 @@ focus_previous = NodePath("../StartButton")
 custom_fonts/font = SubResource( 1 )
 text = "Quit"
 flat = true
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-volume_db = -30.0
-pitch_scale = 1.06
